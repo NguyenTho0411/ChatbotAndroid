@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+
+    <!-- Nền tròn -->
+    <path
+        android:fillColor="#4A6572"
+        android:pathData="M60,60m-55,0a55,55 0,1 1,110 0a55,55 0,1 1,-110 0" />
+
+    <!-- Hiệu ứng sáng -->
+    <path
+        android:fillColor="#344955"
+        android:pathData="M60,60m-50,0a50,50 0,1 1,100 0a50,50 0,1 1,-100 0" />
+
+    <!-- Sách mở - trang trái -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M35,35 L35,85 L60,75 L60,25 Z" />
+
+    <!-- Sách mở - trang phải -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:pathData="M60,25 L60,75 L85,85 L85,35 Z" />
+
+    <!-- Viền sách - trái -->
+    <path
+        android:strokeColor="#F9AA33"
+        android:strokeWidth="2"
+        android:pathData="M35,35 L35,85 L60,75 L60,25 Z" />
+
+    <!-- Viền sách - phải -->
+    <path
+        android:strokeColor="#F9AA33"
+        android:strokeWidth="2"
+        android:pathData="M60,25 L60,75 L85,85 L85,35 Z" />
+
+    <!-- Các dòng văn bản trên trang sách trái -->
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M40,40 L55,40" />
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M40,45 L55,45" />
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M40,50 L55,50" />
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M40,55 L55,55" />
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M40,60 L55,60" />
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M40,65 L50,65" />
+
+    <!-- Các dòng văn bản trên trang sách phải -->
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M65,40 L80,40" />
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M65,45 L80,45" />
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M65,50 L80,50" />
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M65,55 L80,55" />
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M65,60 L80,60" />
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M65,65 L75,65" />
+
+    <!-- Bookmark -->
+    <path
+        android:fillColor="#F9AA33"
+        android:pathData="M75,25 L75,40 L80,35 L85,40 L85,25 Z" />
+</vector>

@@ -1,5 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#212121</color> <!-- Màu đen đậm cho Toolbar và BottomNav -->
+    <color name="colorPrimaryDark">#000000</color> <!-- Màu đen tối cho trạng thái -->
+    <color name="colorAccent">#757575</color> <!-- Màu xám cho điểm nhấn -->
+    <color name="colorBackground">#FFFFFF</color> <!-- Nền trắng -->
+    <color name="colorTextPrimary">#212121</color> <!-- Văn bản chính: đen đậm -->
+    <color name="colorTextSecondary">#757575</color> <!-- Văn bản phụ: xám -->
+    <color name="colorDivider">#E0E0E0</color> <!-- Đường phân cách: xám nhạt -->
+    <color name="nav_item_tint">#FFFFFF</color> <!-- Màu trắng cho icon và text BottomNav -->
+    <color name="colorPrimaryVariant">#3700B3</color>
+    <color name="colorPrimaryLight">#BB86FC</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorSecondaryLight">#E0E0E0</color>
+    <color name="favorite_active">#FF5722</color>
+    <color name="favorite_inactive">#757575</color>
+    <!-- Màu cho đánh giá -->
+    <color name="rating_active">#FFC107</color>
+    <color name="rating_inactive">#D6D6D6</color>
+
+    <!-- Màu cho nút -->
+    <color name="button_primary">#1976D2</color>
+    <color name="button_secondary">#757575</color>
+    <color name="button_success">#4CAF50</color>
+    <color name="button_danger">#F44336</color>
+
+    <color name="primary">#1976D2</color>
+    <color name="primary_dark">#0D47A1</color>
+    <color name="primary_light">#BBDEFB</color>
+    <color name="accent">#FF5722</color>
+    <color name="accent_light">#FFCCBC</color>
+
+    <!-- Màu chữ và nền -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_hint">#BDBDBD</color>
+    <color name="divider">#E0E0E0</color>
+    <color name="background">#FAFAFA</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="transparent">#00000000</color>
+    <color name="material_dynamic_secondary_text_color">#5D8CAE</color>
+
+    <color name="edit_text_background">#F9F9F9</color>
+    <color name="text_white">#FFFFFF</color>
 </resources>
