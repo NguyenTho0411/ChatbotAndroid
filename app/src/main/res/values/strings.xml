@@ -1,3 +1,115 @@
 <resources>
-    <string name="app_name">BookAppAndroid</string>
+    <string name="app_name">Cửa Hàng Sách</string>
+    <string name="app_logo">Logo ứng dụng</string>
+    <string name="welcome_back">Chào mừng trở lại!</string>
+    <string name="login_subtitle">Đăng nhập để khám phá thế giới sách</string>
+    <string name="email_address">Địa chỉ email</string>
+    <string name="password">Mật khẩu</string>
+    <string name="forgot_password">Quên mật khẩu?</string>
+    <string name="login">Đăng nhập</string>
+    <string name="or">HOẶC</string>
+    <string name="google">Google</string>
+    <string name="facebook">Facebook</string>
+    <string name="dont_have_account">Chưa có tài khoản?</string>
+    <string name="register">Đăng ký</string>
+    <string name="create_account">Tạo tài khoản mới</string>
+    <string name="register_subtitle">Đăng ký để bắt đầu hành trình đọc sách</string>
+    <string name="full_name">Họ và tên</string>
+    <string name="confirm_password">Xác nhận mật khẩu</string>
+    <string name="already_have_account">Đã có tài khoản?</string>
+    <string name="password_requirements">Tối thiểu 8 ký tự, bao gồm chữ hoa, chữ thường và số</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="invalid_email">Email không hợp lệ</string>
+    <string name="invalid_password">Mật khẩu phải có ít nhất 8 ký tự</string>
+    <string name="passwords_not_match">Mật khẩu không khớp</string>
+    <string name="login_success">Đăng nhập thành công!</string>
+    <string name="login_failed">Đăng nhập thất bại, vui lòng thử lại</string>
+    <string name="register_success">Đăng ký thành công!</string>
+    <string name="register_failed">Đăng ký thất bại, vui lòng thử lại</string>
+    <string name="field_required">Trường này không được để trống</string>
+    <string name="forgot_password_title">Quên mật khẩu?</string>
+    <string name="forgot_password_subtitle">Nhập địa chỉ email của bạn để đặt lại mật khẩu</string>
+    <string name="reset_password">Lấy lại mật khẩu</string>
+    <string name="back_to_login">Đăng nhập</string>
+    <string name="otp_verification_title">Xác minh OTP</string>
+    <string name="otp_verification_subtitle">Nhập mã OTP đã được gửi đến email của bạn</string>
+    <string name="verify_otp">Xác minh OTP</string>
+    <string name="otp_code">Mã OTP</string>
+    <string name="resend_otp">Gửi lại OTP</string>
+    <string name="back_to_forgot_password">Quên mật khẩu?</string>
+    <string name="reset_password_title">Đặt lại mật khẩu</string>
+    <string name="reset_password_subtitle">Nhập mật khẩu mới và xác nhận</string>
+    <string name="new_password">Mật khẩu mới</string>
+    <string name="save_password">Lưu mật khẩu</string>
+    <string name="recommended_books">Sách đề xuất</string>
+    <string name="new_releases">Sách mới</string>
+    <string name="home">Trang chủ</string>
+    <string name="library">Thư viện</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="profile">Hồ sơ</string>
+    <string name="book_title">Tiêu đề sách</string>
+    <string name="book_author">Tác giả</string>
+    <string name="book_cover">Bìa sách</string>
+    <string name="search_hint">VD: Harry Potter</string>
+    <string name="profile_name">Nguyễn Thành Đạt</string>
+    <string name="your_books">Harry Potter</string>
+    <string name="profile_bio">Avid reader | Lover of fiction and mysteries</string>
+    <string name="books_read">12 Books</string>
+    <string name="reading_time">45 Hours</string>
+    <string name="favorite_genre">Fiction</string>
+    <string name="reading_progress">Reading Progress</string>
+    <string name="profile_image_desc">User profile image</string>
+    <string name="settings_desc">Open settings</string>
+    <string name="add_book_desc">Add a new book</string>
+    <string name="add_book">Add Book</string>
+    <string name="header_image_desc">Profile header background</string>
+    <string name="floating_action_button_behavior">Add</string>
+    <string name="search_books">Tìm kiếm</string>
+
+    <!-- Book Details -->
+    <string name="book_details">Chi tiết sách</string>
+    <string name="book_category">Thể loại</string>
+    <string name="book_price">Giá</string>
+    <string name="book_year">Năm xuất bản</string>
+    <string name="book_publisher">Nhà xuất bản</string>
+    <string name="book_description">Mô tả</string>
+    <string name="book_quantity">Số lượng</string>
+    <string name="book_isbn">ISBN</string>
+
+    <!-- Add/Edit Book -->
+    <string name="add_new_book">Thêm sách mới</string>
+    <string name="edit_book">Chỉnh sửa sách</string>
+    <string name="hint_title">Nhập tiêu đề</string>
+    <string name="hint_author">Nhập tác giả</string>
+    <string name="hint_category">Nhập thể loại</string>
+    <string name="hint_price">Nhập giá</string>
+    <string name="hint_year">Nhập năm xuất bản</string>
+    <string name="hint_publisher">Nhập nhà xuất bản</string>
+    <string name="hint_description">Nhập mô tả</string>
+    <string name="hint_quantity">Nhập số lượng</string>
+    <string name="hint_isbn">Nhập ISBN</string>
+
+    <!-- Buttons -->
+    <string name="save">Lưu</string>
+    <string name="cancel">Hủy</string>
+    <string name="delete">Xóa</string>
+    <string name="edit">Sửa</string>
+
+    <!-- Dialog -->
+    <string name="confirm_delete">Xác nhận xóa</string>
+    <string name="confirm_delete_message">Bạn có chắc chắn muốn xóa cuốn sách này?</string>
+    <string name="yes">Có</string>
+    <string name="no">Không</string>
+
+    <!-- Validation Messages -->
+    <string name="error_empty_title">Tiêu đề không được để trống</string>
+    <string name="error_empty_author">Tác giả không được để trống</string>
+    <string name="error_invalid_price">Giá không hợp lệ</string>
+    <string name="error_invalid_year">Năm xuất bản không hợp lệ</string>
+    <string name="error_invalid_quantity">Số lượng không hợp lệ</string>
+
+    <!-- Success Messages -->
+    <string name="book_added">Thêm sách thành công</string>
+    <string name="book_updated">Cập nhật sách thành công</string>
+    <string name="book_deleted">Xóa sách thành công</string>
 </resources>
