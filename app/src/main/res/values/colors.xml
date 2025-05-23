@@ -42,4 +42,37 @@
 
     <color name="edit_text_background">#F9F9F9</color>
     <color name="text_white">#FFFFFF</color>
+
+    <!-- Primary colors -->
+    <color name="primary_color">#3F51B5</color>
+
+    <!-- Secondary colors -->
+    <color name="secondary_color">#FF5722</color>
+    <color name="secondary_dark">#D84315</color>
+    <color name="secondary_light">#FFCCBC</color>
+
+    <!-- Accent colors -->
+    <color name="accent_color">#FF9800</color>
+
+    <!-- Background colors -->
+    <color name="background_color">#F5F5F5</color>
+    <color name="surface_color">#FFFFFF</color>
+
+    <!-- Basic colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <!-- Gradient colors -->
+    <color name="gradient_start">#667eea</color>
+    <color name="gradient_end">#764ba2</color>
+    <color name="category_gradient_start">#4CAF50</color>
+    <color name="category_gradient_end">#2E7D32</color>
+    <color name="book_gradient_start">#2196F3</color>
+    <color name="book_gradient_end">#1565C0</color>
+
+    <!-- Status colors -->
+    <color name="success_color">#4CAF50</color>
+    <color name="error_color">#F44336</color>
+    <color name="warning_color">#FF9800</color>
+    <color name="info_color">#2196F3</color>
 </resources>
