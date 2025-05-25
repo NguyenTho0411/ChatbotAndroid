@@ -13,16 +13,25 @@
         android:orientation="vertical"
         android:padding="8dp">
 
-        <ImageView
-            android:id="@+id/iv_book_cover"
+        <!-- Container PDF với ProgressBar -->
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/placeholder_book_cover"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:contentDescription="@string/book_cover" />
+            android:background="#EEEEEE">
 
+            <com.github.barteksc.pdfviewer.PDFView
+                android:id="@+id/pdfView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+        <!-- Tiêu đề sách -->
         <TextView
             android:id="@+id/tv_book_title"
             android:layout_width="match_parent"
@@ -35,6 +44,7 @@
             android:ellipsize="end"
             android:layout_marginTop="8dp" />
 
+        <!-- Mô tả / tác giả -->
         <TextView
             android:id="@+id/tv_book_author"
             android:layout_width="match_parent"
