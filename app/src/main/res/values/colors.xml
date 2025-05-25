@@ -69,7 +69,9 @@
     <color name="category_gradient_end">#2E7D32</color>
     <color name="book_gradient_start">#2196F3</color>
     <color name="book_gradient_end">#1565C0</color>
+
     <color name="gray01">#c5c5c5</color>
+
     <!-- Status colors -->
     <color name="success_color">#4CAF50</color>
     <color name="error_color">#F44336</color>
