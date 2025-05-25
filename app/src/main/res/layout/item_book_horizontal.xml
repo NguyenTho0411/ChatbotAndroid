@@ -14,12 +14,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/book_cover"
+            android:id="@+id/iv_book_cover"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="180dp"
             android:scaleType="centerCrop"
+            android:background="#EEEEEE"
             android:src="@drawable/placeholder_book_cover"
-            android:contentDescription="Bìa sách tương tự" />
+            android:contentDescription="@string/book_cover" />
+
     </androidx.cardview.widget.CardView>
 
     <TextView

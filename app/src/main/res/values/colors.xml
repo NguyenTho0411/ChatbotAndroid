@@ -70,95 +70,18 @@
     <color name="book_gradient_start">#2196F3</color>
     <color name="book_gradient_end">#1565C0</color>
 
+    <color name="gray01">#c5c5c5</color>
+
     <!-- Status colors -->
     <color name="success_color">#4CAF50</color>
     <color name="error_color">#F44336</color>
     <color name="warning_color">#FF9800</color>
     <color name="info_color">#2196F3</color>
 
-    <!-- Doraemon Color Palette -->
-    <color name="doraemon_blue">#0085D1</color>
-    <color name="doraemon_light_blue">#4DB6E6</color>
-    <color name="doraemon_dark_blue">#005A9B</color>
+    <color name="error">#FF0000</color> <!-- Màu đỏ -->
+    <color name="purple_500">#6200EE</color>
 
-    <!-- Background Colors -->
-    <color name="chat_background">#F8FBFF</color>
-    <color name="header_gradient_start">#0085D1</color>
-    <color name="header_gradient_end">#4DB6E6</color>
-
-    <!-- Message Colors -->
-    <color name="user_message_bg">#FF6B9D</color>
-    <color name="user_message_bg_gradient_start">#FF6B9D</color>
-    <color name="user_message_bg_gradient_end">#FF8FA3</color>
-
-    <color name="bot_message_bg">#FFFFFF</color>
-    <color name="bot_message_shadow">#E8F4FD</color>
-
-    <!-- Input Colors -->
-    <color name="input_background">#FFFFFF</color>
-    <color name="message_input_bg">#F5F8FF</color>
-    <color name="message_input_border">#E0E8FF</color>
-
-    <!-- Text Colors -->
-    <color name="dark_text">#2C3E50</color>
-    <color name="gray_text">#7F8C8D</color>
-    <color name="light_gray_text">#BDC3C7</color>
-    <color name="light_blue">#AED6F1</color>
-
-    <!-- Button Colors -->
-    <color name="send_button_bg">#0085D1</color>
-    <color name="send_button_pressed">#005A9B</color>
-    <color name="circle_button_bg">#E8F4FD</color>
-
-    <!-- Special Colors -->
-    <color name="doraemon_yellow">#FFD700</color>
-    <color name="doraemon_red">#FF4757</color>
-    <color name="doraemon_pink">#FF6B9D</color>
-    <color name="typing_bg">#F0F8FF</color>
-
-    <!-- Shadow Colors -->
-    <color name="shadow_light">#10000000</color>
-    <color name="shadow_medium">#20000000</color>
-    <color name="shadow_dark">#30000000</color>
-    <!-- Primary Colors -->
-    <color name="primary_gradient_start">#667eea</color>
-    <color name="primary_gradient_end">#764ba2</color>
-
-    <!-- Background Colors -->
-    <color name="input_field_bg">#f1f5f9</color>
-
-    <!-- Message Bubble Colors -->
-    <color name="user_bubble_color">#667eea</color>
-    <color name="bot_bubble_color">#ffffff</color>
-    <color name="typing_bubble_color">#f1f5f9</color>
-
-    <!-- Text Colors -->
-    <color name="status_text">#e2e8f0</color>
-    <color name="time_text">#94a3b8</color>
-    <color name="hint_color">#cbd5e1</color>
-
-    <!-- Border Colors -->
-    <color name="bubble_border">#e2e8f0</color>
-    <color name="input_border">#e2e8f0</color>
-    <color name="avatar_border">#e2e8f0</color>
-
-    <!-- Button Colors -->
-    <color name="send_button_enabled">#10b981</color>
-    <color name="send_button_disabled">#d1d5db</color>
-
-    <!-- Avatar Colors -->
-    <color name="bot_avatar_start">#60a5fa</color>
-    <color name="bot_avatar_end">#3b82f6</color>
-
-    <!-- Icon Colors -->
-    <color name="icon_primary">#667eea</color>
-    <color name="icon_secondary">#94a3b8</color>
-
-    <!-- Ripple Effect -->
-    <color name="ripple_color">#e2e8f0</color>
-
-    <!-- Additional UI Colors -->
-    <color name="divider_color">#f1f5f9</color>
-    <color name="shadow_color">#1e293b33</color>
-    <color name="overlay_color">#00000080</color>
+    <color name="gray02">#777777</color>
+    <color name="gray03">#EDEDED</color>
+    <color name="gray04">#FBFBFB</color>
 </resources>

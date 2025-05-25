@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "961757210293",
-    "project_id": "bookappandroid-2532a",
-    "storage_bucket": "bookappandroid-2532a.firebasestorage.app"
+    "project_number": "764326705790",
+    "project_id": "chatbot-3d9d5",
+    "storage_bucket": "chatbot-3d9d5.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:961757210293:android:c5926b374a8f58130040fc",
+        "mobilesdk_app_id": "1:764326705790:android:40ce90be32773566b6f62f",
         "android_client_info": {
           "package_name": "hcmute.edu.vn.bookappandroid"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCBN1ko4u5MiHHy1GS2yKR2ltRDzUMD7vo"
+          "current_key": "AIzaSyCafjFIn3bpNsZ8tC82G2SDAl1yvq-wtus"
         }
       ],
       "services": {

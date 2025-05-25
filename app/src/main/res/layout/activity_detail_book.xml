@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <!-- Toolbar với nút back -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -21,10 +20,8 @@
             app:navigationIcon="@drawable/ic_arrow_back"
             app:title="Chi tiết sách"
             app:titleTextColor="@android:color/white" />
-
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Nội dung chính cuộn được -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,10 +29,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:padding="16dp">
 
-            <!-- Phần thông tin đầu trang với ảnh bìa và thông tin cơ bản -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_book_cover"
                 android:layout_width="120dp"
@@ -46,16 +42,24 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/book_cover"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/placeholder_book_cover"
-                    android:contentDescription="Bìa sách" />
+                    android:layout_height="180dp"
+                    android:background="#EEEEEE">
+
+                    <com.github.barteksc.pdfviewer.PDFView
+                        android:id="@+id/pdfView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="visible" />
+                </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Thông tin sách bên cạnh ảnh bìa -->
             <TextView
                 android:id="@+id/book_title"
                 android:layout_width="0dp"
@@ -82,7 +86,6 @@
                 app:layout_constraintStart_toStartOf="@+id/book_title"
                 app:layout_constraintTop_toBottomOf="@+id/book_title" />
 
-            <!-- Đánh giá sao -->
             <RatingBar
                 android:id="@+id/book_rating"
                 style="?android:attr/ratingBarStyleSmall"
@@ -106,7 +109,6 @@
                 app:layout_constraintStart_toEndOf="@+id/book_rating"
                 app:layout_constraintTop_toTopOf="@+id/book_rating" />
 
-            <!-- Buttons -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_read"
                 android:layout_width="0dp"
@@ -130,7 +132,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/btn_read" />
 
-            <!-- Chi tiết sách -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_details"
                 android:layout_width="match_parent"
@@ -162,103 +163,96 @@
                         android:layout_marginBottom="8dp"
                         android:background="#E0E0E0" />
 
-                    <LinearLayout
+                    <TableLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:stretchColumns="1">
 
+                        <TableRow>
+                            <TextView
+                                android:text="Nhà xuất bản:"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/book_publisher"
+                                android:text="Tên nhà xuất bản" />
+                        </TableRow>
+
+                        <TableRow>
+                            <TextView
+                                android:text="Ngày xuất bản:"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/book_publish_date"
+                                android:text="01/01/2023" />
+                        </TableRow>
+
+                        <TableRow>
+                            <TextView
+                                android:text="Số trang:"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/book_pages"
+                                android:text="350" />
+                        </TableRow>
+
+                        <TableRow>
+                            <TextView
+                                android:text="ISBN:"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/book_isbn"
+                                android:text="978-3-16-148410-0" />
+                        </TableRow>
+
+                        <TableRow>
+                            <TextView
+                                android:text="Ngôn ngữ:"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/book_language"
+                                android:text="Tiếng Việt" />
+                        </TableRow>
+
+                        <TableRow>
+                            <TextView
+                                android:text="Lượt xem:"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/viewsTv"
+                                android:text="N/A" />
+                        </TableRow>
+
+                        <TableRow>
+                            <TextView
+                                android:text="Tải xuống:"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/downloadsTv"
+                                android:text="N/A" />
+                        </TableRow>
+
+                        <TableRow>
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Nhà xuất bản: "
+                            android:text="Size:"
                             android:textStyle="bold" />
-
                         <TextView
-                            android:id="@+id/book_publisher"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Tên nhà xuất bản" />
-                    </LinearLayout>
+                            android:id="@+id/sizeTv"
+                            android:text="N/A" />
+                    </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:text="Danh mục:"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/categoryTv"
+                                android:text="N/A" />
+                        </TableRow>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:orientation="horizontal">
+                    </TableLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Ngày xuất bản: "
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/book_publish_date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="01/01/2023" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Số trang: "
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/book_pages"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="350" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="ISBN: "
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/book_isbn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="978-3-16-148410-0" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Ngôn ngữ: "
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/book_language"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Tiếng Việt" />
-                    </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Mô tả sách -->
             <TextView
                 android:id="@+id/book_description_label"
                 android:layout_width="match_parent"
@@ -275,10 +269,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="Mô tả chi tiết về sách sẽ hiển thị ở đây. Đây là nội dung tóm tắt về cuốn sách, giới thiệu về nội dung và các điểm nổi bật của tác phẩm. Nội dung này giúp người đọc có cái nhìn tổng quan trước khi quyết định đọc."
+                android:text="Mô tả chi tiết về sách sẽ hiển thị ở đây..."
                 app:layout_constraintTop_toBottomOf="@+id/book_description_label" />
 
-            <!-- Mục lục sách -->
             <TextView
                 android:id="@+id/book_content_label"
                 android:layout_width="match_parent"
@@ -299,7 +292,6 @@
                 tools:itemCount="5"
                 tools:listitem="@layout/item_chapter" />
 
-            <!-- Đánh giá và nhận xét -->
             <TextView
                 android:id="@+id/book_reviews_label"
                 android:layout_width="match_parent"
@@ -320,7 +312,6 @@
                 tools:itemCount="3"
                 tools:listitem="@layout/item_review" />
 
-            <!-- Sách tương tự -->
             <TextView
                 android:id="@+id/similar_books_label"
                 android:layout_width="match_parent"
@@ -346,10 +337,45 @@
                 tools:itemCount="5"
                 tools:listitem="@layout/item_book_horizontal" />
 
+            <!-- BÌNH LUẬN -->
+            <TextView
+                android:id="@+id/commentsLabelTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Bình luận"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:fontFamily="sans-serif-condensed"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_similar_books" />
+
+            <ImageButton
+                android:id="@+id/addCommentBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="48dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_add_comment_black"
+                android:contentDescription="Thêm bình luận"
+                app:layout_constraintTop_toBottomOf="@+id/commentsLabelTv"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/commentsRv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/gray04"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintTop_toBottomOf="@+id/addCommentBtn"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/row_comment" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Floating Action Button để thêm sách vào danh sách yêu thích -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_favorite"
         android:layout_width="wrap_content"
