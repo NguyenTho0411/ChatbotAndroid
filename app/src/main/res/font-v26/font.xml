@@ -7,9 +7,9 @@
 <font
     android:fontStyle="normal"
     android:fontWeight="500"
-    android:font="@font/cute_medium" />
+    android:font="@font/nunito_medium" />
 <font
     android:fontStyle="normal"
     android:fontWeight="700"
-    android:font="@font/cute_bold" />
+    android:font="@font/nunito_bold" />
 </font-family>

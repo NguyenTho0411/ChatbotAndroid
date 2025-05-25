@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background_color">
 
     <!-- Header -->
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/book_header_background"
-        android:orientation="horizontal"
-        android:padding="20dp"
-        android:gravity="center_vertical">
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -22,15 +19,15 @@
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:navigationIcon="@drawable/ic_back"
             app:title="@string/add_new_book"
-            app:titleTextColor="@color/text_white" />
+            app:titleTextColor="@color/text_white"
+            android:contentDescription="back_button" />
     </com.google.android.material.appbar.AppBarLayout>
-
-    </LinearLayout>
 
     <!-- Main Content -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:fillViewport="true">
 
         <LinearLayout
@@ -39,7 +36,7 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- Tiêu đề -->
+            <!-- Book Title -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_title"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -53,7 +50,7 @@
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Mô tả -->
+            <!-- Description -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_description"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -68,7 +65,7 @@
                     android:lines="4" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Tác giả (Author) -->
+            <!-- Author -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_author"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -83,7 +80,7 @@
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Nhà xuất bản -->
+            <!-- Publisher -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -95,7 +92,7 @@
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Ngày xuất bản -->
+            <!-- Publish Date -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -120,7 +117,7 @@
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Ngôn ngữ -->
+            <!-- Language -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -132,7 +129,7 @@
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Số trang -->
+            <!-- Pages -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -145,7 +142,7 @@
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Category chọn từ dialog -->
+            <!-- Book Category (custom TextView) -->
             <TextView
                 android:id="@+id/categoryTv"
                 android:layout_width="match_parent"
@@ -157,11 +154,11 @@
                 android:drawableEnd="@drawable/ic_down_arrow"
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical"
-                android:hint="Book Category"
+                android:text="Book Category"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
-            <!-- Attach PDF -->
+            <!-- Attach PDF Button -->
             <Button
                 android:id="@+id/attachBtn"
                 android:layout_width="match_parent"
@@ -171,7 +168,7 @@
                 android:textColor="@color/white"
                 android:background="@drawable/bg_button" />
 
-            <!-- Upload -->
+            <!-- Upload Button -->
             <Button
                 android:id="@+id/submitBtn"
                 android:layout_width="match_parent"
@@ -180,7 +177,7 @@
                 android:text="Upload"
                 android:textColor="@color/white"
                 android:background="@drawable/bg_button" />
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
