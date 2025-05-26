@@ -2,6 +2,7 @@ package hcmute.edu.vn.bookappandroid.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,45 +10,35 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import hcmute.edu.vn.bookappandroid.R;
+import hcmute.edu.vn.bookappandroid.databinding.ActivityMainBinding;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    //Khai báo biến binding kiểu ActivityMainBinding để sử dụng View Binding
+    private ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_dashboard_user);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId();
+        // Sử dụng View Binding để thiết lập giao diện
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-            if (itemId == R.id.nav_home) {
-                // Đang ở MainActivity (home) rồi, không cần làm gì
-                return true;
-            } else if (itemId == R.id.nav_library) {
-                startActivity(new Intent(MainActivity.this, LibraryActivity.class));
-                overridePendingTransition(0, 0); // không animation
-                finish(); // đóng MainActivity
-                return true;
-            } else if (itemId == R.id.nav_search) {
-                startActivity(new Intent(MainActivity.this, SearchActivity.class));
-                overridePendingTransition(0, 0);
-                finish();
-                return true;
-            } else if (itemId == R.id.nav_profile) {
-                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-                overridePendingTransition(0, 0);
-                finish();
-                return true;
+        // Xử lý sự kiện khi bấm vào nút loginBtn, mở màn hình login
+        binding.loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v){
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
-
-            return false;
         });
 
+        //Xử lý sự kiện khi bấm vào nút skipBtn, chuyen sang giao dien DashboardUser
+        binding.skipBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+            }
+        });
     }
 }

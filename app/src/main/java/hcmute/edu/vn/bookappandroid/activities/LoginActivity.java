@@ -5,22 +5,33 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
-import android.view.View;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.IntentSenderRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.AuthResult;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.google.android.gms.auth.api.identity.BeginSignInRequest;
+import com.google.android.gms.auth.api.identity.Identity;
+import com.google.android.gms.auth.api.identity.SignInClient;
+import com.google.android.gms.auth.api.identity.SignInCredential;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
+import java.util.Arrays;
+
+import hcmute.edu.vn.bookappandroid.R;
 import hcmute.edu.vn.bookappandroid.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -31,6 +42,27 @@ public class LoginActivity extends AppCompatActivity {
 
     private String email = "", password = "";
 
+    private SignInClient oneTapClient;
+    private BeginSignInRequest signInRequest;
+
+    private CallbackManager callbackManager; // Facebook
+
+    private final ActivityResultLauncher<IntentSenderRequest> googleLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartIntentSenderForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    try {
+                        SignInCredential credential = oneTapClient.getSignInCredentialFromIntent(result.getData());
+                        String idToken = credential.getGoogleIdToken();
+                        AuthCredential firebaseCredential = GoogleAuthProvider.getCredential(idToken, null);
+                        firebaseAuth.signInWithCredential(firebaseCredential)
+                                .addOnSuccessListener(authResult -> checkUser())
+                                .addOnFailureListener(e -> Toast.makeText(this, "Google login failed!", Toast.LENGTH_SHORT).show());
+                    } catch (Exception e) {
+                        Toast.makeText(this, "Google login error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,21 +70,20 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         firebaseAuth = FirebaseAuth.getInstance();
+        callbackManager = CallbackManager.Factory.create(); // Facebook
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
 
-        // Mở màn hình đăng ký
+        binding.btnLogin.setOnClickListener(v -> validateData());
         binding.tvRegister.setOnClickListener(v ->
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class)));
-
-        // Mở màn hình quên mật khẩu
         binding.tvForgotPassword.setOnClickListener(v ->
                 startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class)));
 
-        // Nút login
-        binding.btnLogin.setOnClickListener(v -> validateData());
+        binding.btnGoogle.setOnClickListener(v -> googleLogin());
+        binding.btnFacebook.setOnClickListener(v -> facebookLogin());
     }
 
     private void validateData() {
@@ -60,16 +91,16 @@ public class LoginActivity extends AppCompatActivity {
         password = binding.etPassword.getText().toString().trim();
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(this, "Invalid email format!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Email không hợp lệ!", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "Please enter password!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Vui lòng nhập mật khẩu!", Toast.LENGTH_SHORT).show();
         } else {
             loginUser();
         }
     }
 
     private void loginUser() {
-        progressDialog.setMessage("Logging in...");
+        progressDialog.setMessage("Đang đăng nhập...");
         progressDialog.show();
 
         firebaseAuth.signInWithEmailAndPassword(email, password)
@@ -81,32 +112,72 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkUser() {
-        progressDialog.setMessage("Checking user type...");
+        progressDialog.setMessage("Đang kiểm tra vai trò...");
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-        ref.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                progressDialog.dismiss();
-                String userType = "" + snapshot.child("userType").getValue();
+        FirebaseDatabase.getInstance().getReference("Users")
+                .child(firebaseUser.getUid())
+                .get()
+                .addOnSuccessListener(snapshot -> {
+                    progressDialog.dismiss();
+                    String userType = "" + snapshot.child("userType").getValue();
+                    if ("admin".equals(userType)) {
+                        startActivity(new Intent(LoginActivity.this, DashboardAdminActivity.class));
+                    } else {
+                        startActivity(new Intent(LoginActivity.this, DashboardUserActivity.class));
+                    }
+                    finish();
+                })
+                .addOnFailureListener(e -> {
+                    progressDialog.dismiss();
+                    Toast.makeText(this, "Không thể kiểm tra loại người dùng!", Toast.LENGTH_SHORT).show();
+                });
+    }
 
-                if ("user".equals(userType)) {
-                    startActivity(new Intent(LoginActivity.this, DashboardUserActivity.class));
-                    finish();
-                } else if ("admin".equals(userType)) {
-                    startActivity(new Intent(LoginActivity.this, DashboardAdminActivity.class));
-                    finish();
-                } else {
-                    Toast.makeText(LoginActivity.this, "Unknown user type!", Toast.LENGTH_SHORT).show();
-                }
+    private void googleLogin() {
+        oneTapClient = Identity.getSignInClient(this);
+        signInRequest = new BeginSignInRequest.Builder()
+                .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                        .setSupported(true)
+                        .setServerClientId(getString(R.string.default_web_client_id))
+                        .setFilterByAuthorizedAccounts(false)
+                        .build())
+                .build();
+
+        oneTapClient.beginSignIn(signInRequest)
+                .addOnSuccessListener(result -> {
+                    IntentSenderRequest intentSenderRequest = new IntentSenderRequest.Builder(
+                            result.getPendingIntent().getIntentSender()).build();
+                    googleLauncher.launch(intentSenderRequest);
+                })
+                .addOnFailureListener(e -> Toast.makeText(this, "Google Sign-In Failed!", Toast.LENGTH_SHORT).show());
+    }
+
+    private void facebookLogin() {
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email", "public_profile"));
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override public void onSuccess(LoginResult loginResult) {
+                handleFacebookAccessToken(loginResult.getAccessToken());
             }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                progressDialog.dismiss();
-                Toast.makeText(LoginActivity.this, "Failed to check user type", Toast.LENGTH_SHORT).show();
+            @Override public void onCancel() {
+                Toast.makeText(LoginActivity.this, "Đã hủy đăng nhập Facebook", Toast.LENGTH_SHORT).show();
+            }
+            @Override public void onError(FacebookException error) {
+                Toast.makeText(LoginActivity.this, "Lỗi Facebook: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        firebaseAuth.signInWithCredential(credential)
+                .addOnSuccessListener(authResult -> checkUser())
+                .addOnFailureListener(e -> Toast.makeText(this, "Facebook login failed!", Toast.LENGTH_SHORT).show());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data); // Facebook
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

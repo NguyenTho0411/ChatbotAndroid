@@ -112,4 +112,9 @@
     <string name="book_added">Thêm sách thành công</string>
     <string name="book_updated">Cập nhật sách thành công</string>
     <string name="book_deleted">Xóa sách thành công</string>
+
+
+    <string name="default_web_client_id">764326705790-d1n72i9pfqj75u3jo7809umh9qt4582a.apps.googleusercontent.com
+</string>
+
 </resources>

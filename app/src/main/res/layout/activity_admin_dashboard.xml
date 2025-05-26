@@ -24,6 +24,7 @@
             android:layout_gravity="center" />
 
         <TextView
+            android:id="@+id/subTitleTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Quản lý danh mục và sách"
@@ -136,28 +137,18 @@
                     android:src="@drawable/ic_category"
                     android:layout_marginEnd="15dp" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Thêm danh mục"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-
-                </LinearLayout>
+                    android:text="Thêm danh mục"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_arrow_forward" />
-
             </LinearLayout>
 
             <!-- Add Book Button -->
@@ -169,7 +160,7 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="20dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="15dp"
                 android:clickable="true"
                 android:focusable="true">
 
@@ -179,28 +170,51 @@
                     android:src="@drawable/ic_book"
                     android:layout_marginEnd="15dp" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="4dp"
-                        android:text="Thêm sách"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
+                    android:text="Thêm sách"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_arrow_forward" />
+            </LinearLayout>
 
+            <!-- Chat with user Button -->
+            <LinearLayout
+                android:id="@+id/btn_chat_with_user"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@drawable/button_chat_background"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="20dp"
+                android:layout_marginBottom="30dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_chat"
+                    android:layout_marginEnd="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Trò chuyện với người dùng"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_arrow_forward" />
             </LinearLayout>
 
             <!-- Quick Stats -->
@@ -241,7 +255,6 @@
                         android:textColor="@color/primary_color"
                         android:textSize="14sp"
                         android:textStyle="bold" />
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -264,13 +277,8 @@
                         android:textColor="@color/secondary_color"
                         android:textSize="14sp"
                         android:textStyle="bold" />
-
                 </LinearLayout>
-
             </LinearLayout>
-
         </LinearLayout>
-
     </ScrollView>
-
 </LinearLayout>

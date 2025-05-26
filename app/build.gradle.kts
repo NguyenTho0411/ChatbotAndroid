@@ -54,17 +54,12 @@ dependencies {
 
 
     implementation("com.github.mhiew:android-pdf-viewer:3.2.0-beta.3")
-    implementation("com.google.android.gms:play-services-auth:20.7.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")  // ✅ đúng
+    implementation("com.google.firebase:firebase-auth:22.3.0")
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
 
-
-
-
-
-
-
-
-
+// Nếu dùng Facebook
+    implementation("com.facebook.android:facebook-android-sdk:latest.release")
 
 }
