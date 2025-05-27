@@ -58,7 +58,7 @@
                 android:layout_height="20dp"
                 android:layout_marginStart="4dp"
                 android:src="@drawable/ic_favorite_border"
-                android:tint="@color/colorAccent" />
+                app:tint="@color/colorAccent" />
         </LinearLayout>
 
         <!-- Tác giả hoặc mô tả -->
