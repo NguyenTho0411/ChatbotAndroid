@@ -13,7 +13,13 @@
         android:icon="@drawable/ic_search"
         android:title="@string/search" />
     <item
+        android:id="@+id/nav_chat"
+        android:icon="@drawable/ic_chat"
+        android:title="Hỗ trợ" />
+    <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/ic_profile"
         android:title="@string/profile" />
+
+
 </menu>

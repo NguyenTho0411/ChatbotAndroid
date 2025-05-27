@@ -38,6 +38,10 @@ public class DashboardAdminActivity extends AppCompatActivity {
         btnAddCategory = findViewById(R.id.btn_add_category);
         btnAddBook = findViewById(R.id.btn_add_book);
         tvSubTitle = findViewById(R.id.subTitleTv); // Nếu bạn muốn hiển thị email người dùng
+        LinearLayout btnChatWithUser = findViewById(R.id.btn_chat_with_user);
+        btnChatWithUser.setOnClickListener(v -> {
+            startActivity(new Intent(DashboardAdminActivity.this, UserListActivity.class));
+        });
 
         // Gán sự kiện
         btnAddCategory.setOnClickListener(new View.OnClickListener() {
