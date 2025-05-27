@@ -44,6 +44,7 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.shimmer)
     implementation(libs.gridlayout)
+    implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -61,5 +62,7 @@ dependencies {
 
 // Nếu dùng Facebook
     implementation("com.facebook.android:facebook-android-sdk:latest.release")
+
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
 }
