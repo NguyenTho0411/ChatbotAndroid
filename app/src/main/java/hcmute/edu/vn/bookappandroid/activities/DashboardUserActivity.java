@@ -2,11 +2,15 @@ package hcmute.edu.vn.bookappandroid.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.facebook.login.LoginManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,6 +40,7 @@ public class DashboardUserActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         checkUser();
+        setSupportActionBar(binding.toolbar); // Gắn toolbar để hiển thị menu logout
 
         setupRecyclerViews();
         setupBottomNavigation();
@@ -114,7 +119,7 @@ public class DashboardUserActivity extends AppCompatActivity {
 
             } else if (id == R.id.nav_library) {
                 Toast.makeText(this, "Thư viện", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, LibraryActivity.class));
+                startActivity(new Intent(this, ChatbotActivity.class));
                 return true;
 
             } else if (id == R.id.nav_search) {
@@ -158,6 +163,26 @@ public class DashboardUserActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_logout) {
+            logout();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private void logout() {
+        FirebaseAuth.getInstance().signOut();
+        LoginManager.getInstance().logOut(); // Facebook
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
 

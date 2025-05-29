@@ -19,8 +19,6 @@ import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnErrorListener;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageErrorListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -102,68 +100,57 @@ public class MyApplication extends Application {
 
     public static void loadPdfPageCount(Context context, String pdfUrl, TextView pagesTv) {
         StorageReference ref = FirebaseStorage.getInstance().getReferenceFromUrl(pdfUrl);
-        ref.getBytes(MAX_BYTES_PDF).addOnSuccessListener(bytes -> {
-            PDFView dummyPdfView = new PDFView(context, null);
-            dummyPdfView.fromBytes(bytes)
-                    .enableSwipe(false)
-                    .onLoad(nbPages -> {
-                        pagesTv.setText(String.valueOf(nbPages));
-                    })
-                    .onError(t -> Log.e("PDF_PAGE_COUNT", "Load error: " + t.getMessage()))
-                    .load();
-        }).addOnFailureListener(e -> Log.e("PDF_PAGE_COUNT", "Failed: " + e.getMessage()));
+        try {
+            File localFile = File.createTempFile("temp", ".pdf");
+            ref.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
+                PDFView dummyPdfView = new PDFView(context, null);
+                dummyPdfView.fromFile(localFile)
+                        .enableSwipe(false)
+                        .onLoad(nbPages -> pagesTv.setText(String.valueOf(nbPages)))
+                        .onError(t -> Log.e("PDF_PAGE_COUNT", "Load error: " + t.getMessage()))
+                        .load();
+            }).addOnFailureListener(e -> Log.e("PDF_PAGE_COUNT", "Failed: " + e.getMessage()));
+        } catch (Exception e) {
+            Log.e("PDF_PAGE_COUNT", "Temp file error: " + e.getMessage());
+        }
     }
 
     public static void loadPdfFromUrlSinglePage(String pdfUrl, String pdfTitle, PDFView pdfView, ProgressBar progressBar, TextView pagesTv) {
         String TAG = "PDF_LOAD_SINGLE_TAG";
 
         StorageReference ref = FirebaseStorage.getInstance().getReferenceFromUrl(pdfUrl);
-        ref.getBytes(MAX_BYTES_PDF)
-                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                    @Override
-                    public void onSuccess(byte[] bytes) {
-                        Log.d(TAG, "onSuccess: " + pdfTitle + " successfully got the file");
-
-                        pdfView.fromBytes(bytes)
+        try {
+            File localFile = File.createTempFile("temp", ".pdf");
+            ref.getFile(localFile)
+                    .addOnSuccessListener(taskSnapshot -> {
+                        pdfView.fromFile(localFile)
                                 .pages(0)
                                 .spacing(0)
                                 .swipeHorizontal(false)
                                 .enableSwipe(false)
-                                .onError(new OnErrorListener() {
-                                    @Override
-                                    public void onError(Throwable t) {
-                                        progressBar.setVisibility(View.INVISIBLE);
-                                        Log.d(TAG, "onError: " + t.getMessage());
-                                    }
+                                .onError(t -> {
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    Log.d(TAG, "onError: " + t.getMessage());
                                 })
-                                .onPageError(new OnPageErrorListener() {
-                                    @Override
-                                    public void onPageError(int page, Throwable t) {
-                                        progressBar.setVisibility(View.INVISIBLE);
-                                        Log.d(TAG, "onPageError: " + t.getMessage());
-                                    }
+                                .onPageError((page, t) -> {
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    Log.d(TAG, "onPageError: " + t.getMessage());
                                 })
-                                .onLoad(new OnLoadCompleteListener() {
-                                    @Override
-                                    public void loadComplete(int nbPages) {
-                                        progressBar.setVisibility(View.INVISIBLE);
-                                        Log.d(TAG, "loadComplete: pdf loaded");
-
-                                        if (pagesTv != null) {
-                                            pagesTv.setText("" + nbPages);
-                                        }
-                                    }
+                                .onLoad(nbPages -> {
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    Log.d(TAG, "loadComplete: pdf loaded");
+                                    if (pagesTv != null) pagesTv.setText("" + nbPages);
                                 })
                                 .load();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
+                    })
+                    .addOnFailureListener(e -> {
                         progressBar.setVisibility(View.INVISIBLE);
                         Log.d(TAG, "onFailure: failed getting file from url due to " + e.getMessage());
-                    }
-                });
+                    });
+        } catch (Exception e) {
+            progressBar.setVisibility(View.INVISIBLE);
+            Log.d(TAG, "Local file error: " + e.getMessage());
+        }
     }
 
     public static void loadCategory(String categoryId, TextView categoryTv) {
@@ -238,7 +225,6 @@ public class MyApplication extends Application {
             progressDialog.dismiss();
         }
     }
-
 
     private static void incrementBookDownloadCount(String bookId) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Books");

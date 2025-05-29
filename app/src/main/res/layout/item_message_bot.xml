@@ -35,6 +35,16 @@
                 android:fontFamily="@font/nunito_regular"
                 android:lineSpacingExtra="2dp" />
 
+            <ImageView
+                android:id="@+id/messageImage"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:visibility="gone"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/bg_chat_image" />
+
         </LinearLayout>
 
         <TextView

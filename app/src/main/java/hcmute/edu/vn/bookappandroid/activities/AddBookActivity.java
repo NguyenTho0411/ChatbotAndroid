@@ -106,17 +106,24 @@ public class AddBookActivity extends AppCompatActivity {
         storageReference.putFile(pdfUri)
                 .addOnSuccessListener(taskSnapshot -> {
                     Log.d(TAG, "onSuccess: PDF uploaded to storage...");
-                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                    while (!uriTask.isSuccessful());
-                    String uploadedPdfUrl = uriTask.getResult().toString();
-                    uploadedPdfInfoToDb(uploadedPdfUrl, timestamp);
+                    taskSnapshot.getStorage().getDownloadUrl()
+                            .addOnSuccessListener(uri -> {
+                                String uploadedPdfUrl = uri.toString();
+                                uploadedPdfInfoToDb(uploadedPdfUrl, timestamp);
+                            })
+                            .addOnFailureListener(e -> {
+                                progressDialog.dismiss();
+                                Log.e(TAG, "getDownloadUrl failed: " + e.getMessage());
+                                Toast.makeText(this, "Failed to get URL: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
                 })
                 .addOnFailureListener(e -> {
                     progressDialog.dismiss();
-                    Log.d(TAG, "onFailure: PDF upload failed due to " + e.getMessage());
-                    Toast.makeText(AddBookActivity.this, "PDF upload failed due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "uploadPdfToStorage failed: " + e.getMessage());
+                    Toast.makeText(this, "Upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
+
 
     private void uploadedPdfInfoToDb(String uploadedPdfUrl, long timestamp) {
         Log.d(TAG, "uploadedPdfInfoToDb: uploading Pdf info to firebase db...");

@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,9 +27,11 @@ import java.util.HashMap;
 import hcmute.edu.vn.bookappandroid.MyApplication;
 import hcmute.edu.vn.bookappandroid.R;
 import hcmute.edu.vn.bookappandroid.adapters.AdapterComment;
+import hcmute.edu.vn.bookappandroid.adapters.AdapterPdfUser;
 import hcmute.edu.vn.bookappandroid.databinding.ActivityDetailBookBinding;
 import hcmute.edu.vn.bookappandroid.databinding.DialogCommentAddBinding;
 import hcmute.edu.vn.bookappandroid.models.ModelComment;
+import hcmute.edu.vn.bookappandroid.models.ModelPdf;
 
 public class PdfDetailActivity extends AppCompatActivity {
 
@@ -40,6 +43,8 @@ public class PdfDetailActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private ArrayList<ModelComment> commentArrayList;
     private AdapterComment adapterComment;
+    private ArrayList<ModelPdf> similarBooksList;
+    private AdapterPdfUser adapterSimilarBooks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +101,36 @@ public class PdfDetailActivity extends AppCompatActivity {
                 showAddCommentDialog();
             }
         });
+        binding.recyclerSimilarBooks.setLayoutManager(
+                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+    }
+    private void loadSimilarBooks(String categoryId) {
+        similarBooksList = new ArrayList<>();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Books");
+        ref.orderByChild("categoryId").equalTo(categoryId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        similarBooksList.clear();
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            String id = ds.getKey();
+                            if (id != null && !id.equals(bookId)) {
+                                ModelPdf model = ds.getValue(ModelPdf.class);
+                                similarBooksList.add(model);
+                            }
+                        }
+
+                        adapterSimilarBooks = new AdapterPdfUser(PdfDetailActivity.this, similarBooksList);
+                        binding.recyclerSimilarBooks.setAdapter(adapterSimilarBooks);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        // Handle error
+                    }
+                });
     }
 
     private void loadComments() {
@@ -204,11 +239,15 @@ public class PdfDetailActivity extends AppCompatActivity {
                 MyApplication.loadPdfFromUrlSinglePage(bookUrl, bookTitle, binding.pdfView, binding.progressBar, null);
                 MyApplication.loadPdfSize(bookUrl, bookTitle, null);
                 MyApplication.loadPdfPageCount(PdfDetailActivity.this, bookUrl, null);
+
+                // 🔥 Thêm hàm này để tải sách tương tự
+                loadSimilarBooks(categoryId);
             }
 
             @Override public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
+
 
     private void checkIsFavorite() {
         FirebaseDatabase.getInstance().getReference("Users")

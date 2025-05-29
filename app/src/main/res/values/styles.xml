@@ -23,5 +23,43 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+
+    <style name="ChatHeaderStyle">
+        <item name="android:background">@drawable/header_gradient_background</item>
+        <item name="android:elevation">8dp</item>
+        <item name="android:paddingHorizontal">20dp</item>
+        <item name="android:paddingVertical">16dp</item>
+    </style>
+
+    <style name="HeaderButtonStyle">
+        <item name="android:background">@drawable/header_button_bg</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+    </style>
+
+    <style name="MessageTextStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:paddingVertical">12dp</item>
+    </style>
+
+    <style name="TimestampStyle">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/timestamp_color</item>
+        <item name="android:fontFamily">@font/nunito_regular</item>
+    </style>
+
+    <style name="InputStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="android:textColor">@color/text_primary_dark</item>
+        <item name="android:textColorHint">@color/hint_modern</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 </resources>
