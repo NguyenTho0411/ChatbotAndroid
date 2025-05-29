@@ -271,31 +271,80 @@ public class ChatbotActivity extends AppCompatActivity {
         DatabaseReference booksRef = database.getReference("Books");
         DatabaseReference categoriesRef = database.getReference("Categories");
 
-        List<String> contextList = new ArrayList<>();
-
+        // Step 1: Search for a matching book in the database
         booksRef.get().addOnCompleteListener(task1 -> {
             if (task1.isSuccessful()) {
-                for (DataSnapshot book : task1.getResult().getChildren()) {
-                    contextList.add("Book: " + book.toString());
+                List<String> keywords = new ArrayList<>();
+                // Split user question into keywords (words with length >= 4)
+                for (String word : userQuestion.toLowerCase().split(" ")) {
+                    if (word.length() >= 4) keywords.add(word);
                 }
-            }
-            categoriesRef.get().addOnCompleteListener(task2 -> {
-                if (task2.isSuccessful()) {
-                    for (DataSnapshot cat : task2.getResult().getChildren()) {
-                        contextList.add("Category: " + cat.toString());
+
+                // Search for a book that matches the keywords
+                for (DataSnapshot snapshot : task1.getResult().getChildren()) {
+                    String title = snapshot.child("title").getValue(String.class);
+                    String pdfUrl = snapshot.child("url").getValue(String.class);
+                    if (title != null && pdfUrl != null) {
+                        for (String keyword : keywords) {
+                            if (title.toLowerCase().contains(keyword)) {
+                                // Book found, extract details and render PDF thumbnail
+                                String author = snapshot.child("author").getValue(String.class);
+                                String description = snapshot.child("description").getValue(String.class);
+                                Long views = snapshot.child("viewsCount").getValue(Long.class);
+                                Long downloads = snapshot.child("downloadsCount").getValue(Long.class);
+
+                                StringBuilder detail = new StringBuilder();
+                                detail.append("📘 Tên sách: ").append(title).append("\n");
+                                if (author != null) detail.append("✍️ Tác giả: ").append(author).append("\n");
+                                if (description != null) detail.append("📖 Mô tả: ").append(description).append("\n");
+                                if (views != null) detail.append("👁️ Lượt xem: ").append(views).append("\n");
+                                if (downloads != null) detail.append("⬇️ Lượt tải: ").append(downloads);
+
+                                runOnUiThread(() -> {
+                                    typingIndicator.setVisibility(View.GONE);
+                                    sendBotMessage("Đây là sách như bạn cần tìm có trong app của tui:");
+                                    renderPdfThumbnailFromFirebase(pdfUrl);
+                                    sendBotMessage(detail.toString());
+                                });
+                                return; // Exit after finding and displaying the first match
+                            }
+                        }
                     }
                 }
 
-                StringBuilder contextBuilder = new StringBuilder();
-                for (String item : contextList) {
-                    contextBuilder.append(item).append("\n\n");
+                // Step 2: If no book is found, proceed with Gemini API
+                List<String> contextList = new ArrayList<>();
+                for (DataSnapshot book : task1.getResult().getChildren()) {
+                    String title = book.child("title").getValue(String.class);
+                    if (title != null) {
+                        // Include only textual data, exclude URLs
+                        contextList.add("Book title: " + title);
+                    }
                 }
 
-                String prompt = "Bạn là chatbot Kajima. Dựa vào dữ liệu dưới đây, hãy trả lời người dùng một cách tự nhiên:\n\n"
-                        + contextBuilder + "\nCâu hỏi: " + userQuestion;
+                categoriesRef.get().addOnCompleteListener(task2 -> {
+                    if (task2.isSuccessful()) {
+                        for (DataSnapshot cat : task2.getResult().getChildren()) {
+                            contextList.add("Category: " + cat.toString());
+                        }
+                    }
 
-                askGemini(prompt);
-            });
+                    StringBuilder contextBuilder = new StringBuilder();
+                    for (String item : contextList) {
+                        contextBuilder.append(item).append("\n\n");
+                    }
+
+                    String prompt = "Bạn là chatbot Kajima. Dựa vào dữ liệu dưới đây, hãy trả lời người dùng một cách tự nhiên:\n\n"
+                            + contextBuilder + "\nCâu hỏi: " + userQuestion;
+
+                    askGemini(prompt);
+                });
+            } else {
+                runOnUiThread(() -> {
+                    typingIndicator.setVisibility(View.GONE);
+                    sendBotMessage("Lỗi khi truy vấn dữ liệu sách.");
+                });
+            }
         });
     }
 
@@ -351,7 +400,24 @@ public class ChatbotActivity extends AppCompatActivity {
                             botReply = botReply.replace(pdfUrl, "");
                         }
 
-                        String finalText = botReply.trim();
+                        // Process **text** to uppercase and remove **
+                        Pattern boldPattern = Pattern.compile("\\*\\*([^\\*\\*]+)\\*\\*");
+                        Matcher boldMatcher = boldPattern.matcher(botReply);
+                        StringBuilder processedText = new StringBuilder();
+                        int lastEnd = 0;
+
+                        while (boldMatcher.find()) {
+                            // Append text before the match
+                            processedText.append(botReply, lastEnd, boldMatcher.start());
+                            // Append the text inside ** ** in uppercase
+                            String boldText = boldMatcher.group(1);
+                            processedText.append(boldText.toUpperCase());
+                            lastEnd = boldMatcher.end();
+                        }
+                        // Append remaining text after the last match
+                        processedText.append(botReply.substring(lastEnd));
+
+                        String finalText = processedText.toString().trim();
                         String finalPdfUrl = pdfUrl;
 
                         runOnUiThread(() -> {
