@@ -1,17 +1,54 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="start"
-    android:orientation="horizontal"
-    android:padding="8dp">
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="6dp">
 
-    <TextView
-        android:id="@+id/messageTv"
+    <!-- Message container -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_left"
-        android:textColor="@android:color/black"
-        android:padding="12dp"
-        android:textSize="16sp" />
+        android:background="@drawable/message_left_modern_bg"
+        android:orientation="vertical"
+        android:maxWidth="280dp"
+        android:elevation="2dp">
+
+        <!-- Image message -->
+        <ImageView
+            android:id="@+id/imageMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="320dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:background="@drawable/message_image_bg"
+            android:visibility="gone" />
+
+        <!-- Text message -->
+        <TextView
+            android:id="@+id/messageTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/message_text_received"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:textSize="16sp"
+            android:fontFamily="@font/nunito_regular"
+            android:lineSpacingExtra="2dp" />
+    </LinearLayout>
+
+    <!-- Timestamp -->
+    <TextView
+        android:id="@+id/timeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12:30"
+        android:textSize="11sp"
+        android:textColor="@color/timestamp_color"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/nunito_regular" />
 </LinearLayout>

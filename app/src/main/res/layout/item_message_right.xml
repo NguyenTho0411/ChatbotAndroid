@@ -1,17 +1,71 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="end"
-    android:orientation="horizontal"
-    android:padding="8dp">
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="6dp"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/messageTv"
+    <!-- Message container -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_right"
-        android:textColor="@android:color/white"
-        android:padding="12dp"
-        android:textSize="16sp" />
+        android:background="@drawable/message_right_modern_bg"
+        android:orientation="vertical"
+        android:maxWidth="280dp"
+        android:elevation="3dp">
+
+        <!-- Image message -->
+        <ImageView
+            android:id="@+id/imageMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="320dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:background="@drawable/message_image_bg"
+            android:visibility="gone" />
+
+        <!-- Text message -->
+        <TextView
+            android:id="@+id/messageTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/message_text_sent"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:textSize="16sp"
+            android:fontFamily="@font/nunito_regular"
+            android:lineSpacingExtra="2dp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+
+    <!-- Status and time -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp">
+
+        <TextView
+            android:id="@+id/timeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12:30"
+            android:textSize="11sp"
+            android:textColor="@color/timestamp_color"
+            android:layout_marginEnd="4dp"
+            android:fontFamily="@font/nunito_regular" />
+
+        <ImageView
+            android:id="@+id/statusIcon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_check_double"
+            android:tint="@color/message_status_color" />
+    </LinearLayout>
 </LinearLayout>

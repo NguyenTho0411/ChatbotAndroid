@@ -59,6 +59,7 @@ dependencies {
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")  // ✅ đúng
     implementation("com.google.firebase:firebase-auth:22.3.0")
     implementation("com.google.android.gms:play-services-auth:21.0.0")
+    implementation("com.google.mlkit:text-recognition:16.0.0-beta5")
 
 // Nếu dùng Facebook
     implementation("com.facebook.android:facebook-android-sdk:latest.release")

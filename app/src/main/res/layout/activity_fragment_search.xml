@@ -25,6 +25,18 @@
             app:icon="@drawable/ic_search"
             app:strokeColor="@color/colorPrimaryVariant"
             app:strokeWidth="1dp" />
+        <!-- SearchView phải nằm ngoài AppBarLayout để hiển thị nổi lên -->
+        <com.google.android.material.search.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/colorBackground"
+            app:layout_anchor="@id/app_bar"
+            app:layout_anchorGravity="bottom"
+            app:headerLayout="@layout/search_view_header"
+            app:placeholderText="@string/search_hint"
+            android:visibility="gone" />
+
 
     </com.google.android.material.appbar.AppBarLayout>
 

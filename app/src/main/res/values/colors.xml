@@ -162,4 +162,35 @@
     <color name="gray03">#EDEDED</color>
     <color name="gray04">#FBFBFB</color>
 
+        <!-- Primary Colors -->
+        <color name="primary_blue">#4A90E2</color>
+        <color name="primary_purple">#8B5CF6</color>
+
+
+        <!-- Background Colors -->
+
+        <color name="light_gray">#F1F5F9</color>
+
+        <!-- Text Colors -->
+        <color name="text_primary_dark">#1E293B</color>
+
+        <color name="message_text_sent">#FFFFFF</color>
+        <color name="message_text_received">#1E293B</color>
+        <color name="hint_modern">#94A3B8</color>
+
+        <!-- Status Colors -->
+        <color name="online_status">#10B981</color>
+        <color name="timestamp_color">#94A3B8</color>
+        <color name="message_status_color">#10B981</color>
+    <color name="on_primary">#FFFFFF</color>
+        <!-- Accent Colors -->
+        <color name="accent_orange">#F59E0B</color>
+        <color name="accent_pink">#EC4899</color>
+        <color name="accent_green">#059669</color>
+    <color name="surface_variant">#F3F0FF</color>
+    <color name="on_surface_variant">#49454F</color>
+    <color name="outline_variant">#CAC4D0</color>
+    <color name="on_surface">#1C1B1F</color>
+    <color name="ripple_mask_color">#33000000</color> <!-- lớp mask nhẹ -->
+
 </resources>
