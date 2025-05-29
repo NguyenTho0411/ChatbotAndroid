@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- White border -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/instagram_white" />
+        </shape>
+    </item>
+    <!-- Green dot -->
+    <item android:inset="2dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/online_indicator" />
+        </shape>
+    </item>
+</layer-list>
