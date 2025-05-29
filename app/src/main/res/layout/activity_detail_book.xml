@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:background="@color/white">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@color/black"
         android:fitsSystemWindows="true">
 
         <androidx.appcompat.widget.Toolbar
@@ -19,18 +20,20 @@
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_arrow_back"
             app:title="Chi tiết sách"
-            app:titleTextColor="@android:color/white" />
+            app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:background="@color/white">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_book_cover"
@@ -39,13 +42,14 @@
                 android:layout_marginTop="8dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/gray03"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
-                    android:background="#EEEEEE">
+                    android:background="@color/gray03">
 
                     <com.github.barteksc.pdfviewer.PDFView
                         android:id="@+id/pdfView"
@@ -70,6 +74,7 @@
                 android:text="Tên sách"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/card_book_cover"
                 app:layout_constraintTop_toTopOf="@+id/card_book_cover" />
@@ -80,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="Tác giả"
-                android:textColor="@color/material_dynamic_secondary_text_color"
+                android:textColor="@color/gray_text"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/book_title"
                 app:layout_constraintStart_toStartOf="@+id/book_title"
@@ -105,6 +110,7 @@
                 android:layout_marginStart="8dp"
                 android:text="(250)"
                 android:textSize="12sp"
+                android:textColor="@color/gray_text"
                 app:layout_constraintBottom_toBottomOf="@+id/book_rating"
                 app:layout_constraintStart_toEndOf="@+id/book_rating"
                 app:layout_constraintTop_toTopOf="@+id/book_rating" />
@@ -116,6 +122,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:text="Đọc sách"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/black"
                 app:cornerRadius="8dp"
                 app:layout_constraintEnd_toStartOf="@+id/btn_download"
                 app:layout_constraintStart_toStartOf="@+id/book_title"
@@ -127,6 +135,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tải về"
+                android:textColor="@color/black"
+                app:strokeColor="@color/black"
                 app:cornerRadius="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_read"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -139,6 +149,9 @@
                 android:layout_marginTop="24dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/white"
+                app:strokeColor="@color/gray01"
+                app:strokeWidth="1dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/card_book_cover">
@@ -154,14 +167,15 @@
                         android:layout_height="wrap_content"
                         android:text="Thông tin chi tiết"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/black" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:background="#E0E0E0" />
+                        android:background="@color/gray01" />
 
                     <TableLayout
                         android:layout_width="match_parent"
@@ -171,81 +185,118 @@
                         <TableRow>
                             <TextView
                                 android:text="Nhà xuất bản:"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:paddingBottom="4dp" />
                             <TextView
                                 android:id="@+id/book_publisher"
-                                android:text="Tên nhà xuất bản" />
+                                android:text="Tên nhà xuất bản"
+                                android:textColor="@color/gray_text"
+                                android:paddingBottom="4dp" />
                         </TableRow>
 
                         <TableRow>
                             <TextView
                                 android:text="Ngày xuất bản:"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:paddingBottom="4dp" />
                             <TextView
                                 android:id="@+id/book_publish_date"
-                                android:text="01/01/2023" />
+                                android:text="01/01/2023"
+                                android:textColor="@color/gray_text"
+                                android:paddingBottom="4dp" />
                         </TableRow>
 
                         <TableRow>
                             <TextView
                                 android:text="Số trang:"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:paddingBottom="4dp" />
                             <TextView
                                 android:id="@+id/book_pages"
-                                android:text="350" />
+                                android:text="350"
+                                android:textColor="@color/gray_text"
+                                android:paddingBottom="4dp" />
                         </TableRow>
 
                         <TableRow>
                             <TextView
                                 android:text="ISBN:"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:paddingBottom="4dp" />
                             <TextView
                                 android:id="@+id/book_isbn"
-                                android:text="978-3-16-148410-0" />
+                                android:text="978-3-16-148410-0"
+                                android:textColor="@color/gray_text"
+                                android:paddingBottom="4dp" />
                         </TableRow>
 
                         <TableRow>
                             <TextView
                                 android:text="Ngôn ngữ:"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:paddingBottom="4dp" />
                             <TextView
                                 android:id="@+id/book_language"
-                                android:text="Tiếng Việt" />
+                                android:text="Tiếng Việt"
+                                android:textColor="@color/gray_text"
+                                android:paddingBottom="4dp" />
                         </TableRow>
 
                         <TableRow>
                             <TextView
                                 android:text="Lượt xem:"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:paddingBottom="4dp" />
                             <TextView
                                 android:id="@+id/viewsTv"
-                                android:text="N/A" />
+                                android:text="N/A"
+                                android:textColor="@color/gray_text"
+                                android:paddingBottom="4dp" />
                         </TableRow>
 
                         <TableRow>
                             <TextView
                                 android:text="Tải xuống:"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:paddingBottom="4dp" />
                             <TextView
                                 android:id="@+id/downloadsTv"
-                                android:text="N/A" />
+                                android:text="N/A"
+                                android:textColor="@color/gray_text"
+                                android:paddingBottom="4dp" />
                         </TableRow>
 
                         <TableRow>
-                        <TextView
-                            android:text="Size:"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:id="@+id/sizeTv"
-                            android:text="N/A" />
-                    </TableRow>
+                            <TextView
+                                android:text="Size:"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:paddingBottom="4dp" />
+                            <TextView
+                                android:id="@+id/sizeTv"
+                                android:text="N/A"
+                                android:textColor="@color/gray_text"
+                                android:paddingBottom="4dp" />
+                        </TableRow>
+
                         <TableRow>
                             <TextView
                                 android:text="Danh mục:"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:paddingBottom="4dp" />
                             <TextView
                                 android:id="@+id/categoryTv"
-                                android:text="N/A" />
+                                android:text="N/A"
+                                android:textColor="@color/gray_text"
+                                android:paddingBottom="4dp" />
                         </TableRow>
 
                     </TableLayout>
@@ -261,6 +312,7 @@
                 android:text="Mô tả"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@+id/card_details" />
 
             <TextView
@@ -270,6 +322,7 @@
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
                 android:text="Mô tả chi tiết về sách sẽ hiển thị ở đây..."
+                android:textColor="@color/gray_text"
                 app:layout_constraintTop_toBottomOf="@+id/book_description_label" />
 
             <TextView
@@ -280,6 +333,7 @@
                 android:text="Mục lục"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@+id/book_description" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -288,6 +342,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:nestedScrollingEnabled="false"
+                android:background="@color/white"
                 app:layout_constraintTop_toBottomOf="@+id/book_content_label"
                 tools:itemCount="5"
                 tools:listitem="@layout/item_chapter" />
@@ -300,6 +355,7 @@
                 android:text="Đánh giá và nhận xét"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@+id/recycler_table_of_contents" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -308,6 +364,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:nestedScrollingEnabled="false"
+                android:background="@color/white"
                 app:layout_constraintTop_toBottomOf="@+id/book_reviews_label"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_review" />
@@ -320,6 +377,7 @@
                 android:text="Sách tương tự"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@+id/recycler_reviews" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -332,6 +390,7 @@
                 android:orientation="horizontal"
                 android:paddingStart="0dp"
                 android:paddingEnd="16dp"
+                android:background="@color/white"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@+id/similar_books_label"
                 tools:itemCount="5"
@@ -357,6 +416,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="48dp"
                 android:background="@android:color/transparent"
+                android:backgroundTint="@color/white"
                 android:src="@drawable/ic_add_comment_black"
                 android:contentDescription="Thêm bình luận"
                 app:layout_constraintTop_toBottomOf="@+id/commentsLabelTv"
@@ -384,6 +444,8 @@
         android:layout_margin="16dp"
         android:contentDescription="Thêm vào yêu thích"
         android:src="@drawable/ic_favorite_border"
+        app:backgroundTint="@color/black"
+        app:tint="@color/white"
         app:fabSize="normal" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

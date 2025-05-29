@@ -7,13 +7,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import hcmute.edu.vn.bookappandroid.R;
 import hcmute.edu.vn.bookappandroid.adapters.UserAdapter;
@@ -37,24 +40,54 @@ public class UserListActivity extends AppCompatActivity {
         userAdapter = new UserAdapter(this, userList);
         recyclerView.setAdapter(userAdapter);
 
-        loadUsers();
+        loadUsersWithChats();
     }
 
-    private void loadUsers() {
-        FirebaseDatabase.getInstance().getReference("Users")
-                .orderByChild("userType").equalTo("user")
+    private void loadUsersWithChats() {
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        Set<String> userIds = new HashSet<>();
+
+        // Fetch all chat rooms involving the current user
+        database.getReference("Chats")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        userList.clear();
+                        userIds.clear();
                         for (DataSnapshot ds : snapshot.getChildren()) {
-                            ModelUser user = ds.getValue(ModelUser.class);
-                            userList.add(user);
+                            String chatId = ds.getKey();
+                            String[] uids = chatId.split("_");
+                            String otherUid = uids[0].equals(currentUserId) ? uids[1] : uids[0];
+                            userIds.add(otherUid);
                         }
-                        userAdapter.notifyDataSetChanged();
+
+                        // Fetch user details for the identified users
+                        if (!userIds.isEmpty()) {
+                            database.getReference("Users")
+                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            userList.clear();
+                                            for (DataSnapshot ds : snapshot.getChildren()) {
+                                                ModelUser user = ds.getValue(ModelUser.class);
+                                                if (user != null && userIds.contains(user.getUid()) && "user".equals(user.getUserType())) {
+                                                    userList.add(user);
+                                                }
+                                            }
+                                            userAdapter.notifyDataSetChanged();
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {}
+                                    });
+                        } else {
+                            userList.clear();
+                            userAdapter.notifyDataSetChanged();
+                        }
                     }
 
-                    @Override public void onCancelled(@NonNull DatabaseError error) {}
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {}
                 });
     }
 }
